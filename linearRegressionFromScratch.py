@@ -9,7 +9,7 @@
 # ===============================================================================
 print('\n' * 100);
 import os;
-os.chdir('Path/Machine Learning/Machine Learning with Python/Linear Regression/');
+os.chdir('D:/Programming/Machine Learning/Machine Learning with Python/Linear Regression/');
 print('Current Working Directory:');
 print(os.getcwd());
 print();
@@ -26,6 +26,8 @@ import numpy as np;
 call("pip install random", shell = True);
 from random import randrange;
 from random import seed;
+call("pip install scipy", shell = True);
+from scipy import stats;
 call("pip install sklearn", shell = True);
 from sklearn.linear_model import LinearRegression;
 # ===============================================================================
@@ -202,10 +204,24 @@ def calculateRMSE(testTarget, predictedTarget):
 
 def modelRSquared(testTarget, predictedTarget):
     targetMean = np.mean(testTarget);
-    totalSSE = sum((testTarget - targetMean) ** 2);
-    residualSSE = sum((testTarget - predictedTarget) ** 2);
+    totalSSE = np.sum((testTarget - targetMean) ** 2);
+    residualSSE = np.sum((testTarget - predictedTarget) ** 2);
     rSquared = 1 - (residualSSE / totalSSE);
     return rSquared;
+
+def calculatePValueChiSquare(testTarget, predictedTarget):
+    chiSquare = np.sum(((predictedTarget - testTarget) ** 2) / predictedTarget);
+    pValueChiSquare = 1 - stats.chi2.cdf(chiSquare, 1);
+    print('Model Chi-Square: ', chiSquare, '\n');
+    return pValueChiSquare;
+
+def calculatePValueFStatistic(testTarget, predictedTarget, degFreeRegression, degFreeResidual):
+    meanRegressionSSE = np.sum((predictedTarget - np.mean(predictedTarget)) ** 2) / degFreeRegression;
+    meanResidualSSE = np.sum((testTarget - predictedTarget) ** 2) / degFreeResidual;
+    fStatistic = meanRegressionSSE / meanResidualSSE;
+    print('Model F-Statistic: ', fStatistic, '\n');
+    pValueFStatistic = 1 - stats.f.cdf(fStatistic, degFreeRegression, degFreeResidual);
+    return pValueFStatistic;
 # ===============================================================================
 # Code for the Main Program
 # ===============================================================================
@@ -243,6 +259,12 @@ modelRMSE = calculateRMSE(testTarget, predictedTarget);
 print('Model RMSE: ', modelRMSE, '\n');
 modelR2 = modelRSquared(testTarget, predictedTarget);
 print('Model R-Squared: ', modelR2, '\n');
+modelPValueChiSqTest = calculatePValueChiSquare(testTarget, predictedTarget);
+print('Model P-Value for Chi-Square Test: ', modelPValueChiSqTest, '\n');
+modelPValueFStatistic = calculatePValueFStatistic(testTarget, predictedTarget,
+                                                  len(trainingData[0]),
+                                                  len(trainingData) - len(trainingData[0]) - 1);
+print('Model P-Value for F-Statistic: ', modelPValueFStatistic, '\n');
 # ===============================================================================
 # Code for the Main Program using Scikit Learn
 # ===============================================================================
