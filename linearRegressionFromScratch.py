@@ -69,13 +69,13 @@ def transformAttributeValues(dataFile):
     print(priceByNeighborhood.describe());
     print();
 
-    lowPriceNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] < 0.756];
+    lowPriceNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] < priceByNeighborhood.describe()['pricepersqft'][50%];
     lowPriceNeighborhoods = lowPriceNeighborhoods.index;
-    highPriceLowFreqNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] >= 0.756];
-    highPriceLowFreqNeighborhoods = highPriceLowFreqNeighborhoods[highPriceLowFreqNeighborhoods['frequency'] < 123];
+    highPriceLowFreqNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] >= priceByNeighborhood.describe()['pricepersqft'][50%]];
+    highPriceLowFreqNeighborhoods = highPriceLowFreqNeighborhoods[highPriceLowFreqNeighborhoods['frequency'] < priceByNeighborhood.describe()['frequency'][50%]];
     highPriceLowFreqNeighborhoods = highPriceLowFreqNeighborhoods.index;
-    highPriceHighFreqNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] >= 0.756];
-    highPriceHighFreqNeighborhoods = highPriceHighFreqNeighborhoods[highPriceHighFreqNeighborhoods['frequency'] >= 123];
+    highPriceHighFreqNeighborhoods = priceByNeighborhood[priceByNeighborhood['pricepersqft'] >= priceByNeighborhood.describe()['pricepersqft'][50%]];
+    highPriceHighFreqNeighborhoods = highPriceHighFreqNeighborhoods[highPriceHighFreqNeighborhoods['frequency'] >= priceByNeighborhood.describe()['frequency'][50%]]];
     highPriceHighFreqNeighborhoods = highPriceHighFreqNeighborhoods.index;
 
     def groupByHood(hood):
