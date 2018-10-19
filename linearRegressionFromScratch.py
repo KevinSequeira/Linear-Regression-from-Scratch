@@ -9,7 +9,7 @@
 # ===============================================================================
 print('\n' * 100);
 import os;
-os.chdir('D:/Programming/Machine Learning/Machine Learning with Python/Linear Regression/');
+os.chdir('Path/Machine Learning/Machine Learning with Python/Linear Regression/');
 print('Current Working Directory:');
 print(os.getcwd());
 print();
