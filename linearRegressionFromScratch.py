@@ -1,9 +1,10 @@
 # ===============================================================================
 # Project Details
 # ===============================================================================
-# Author    : Kevin Sequeira
-# Date      : 17-October-2018
-# Project   : Linear Regression from Scratch
+# Author            : Kevin Sequeira
+# Date              : 19-October-2018
+# Project           : Linear Regression from Scratch
+# Python Version    : 3.7
 # ===============================================================================
 # Set the Working Directory for the Project
 # ===============================================================================
